@@ -1,0 +1,5 @@
+# Ignorer le dossier .venv
+.venv/
+
+# Ignorer le fichier creditcard.csv (relative à la racine du projet)
+data1/creditcard.csv
