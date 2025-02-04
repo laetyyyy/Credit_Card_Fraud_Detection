@@ -5,7 +5,7 @@ from sklearn.svm import SVC
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import ConfusionMatrixDisplay, RocCurveDisplay, PrecisionRecallDisplay
+from sklearn.metrics import ConfusionMatrixDisplay, roc_curve, precision_recall_curve, RocCurveDisplay, PrecisionRecallDisplay, precision_score, recall_score
 import matplotlib.pyplot as plt
 
 def main():
@@ -46,6 +46,31 @@ def main():
         ["SVC", "Random Forest", "Logistic Regression"]
     )
 
+    #Analyse de la performance des modeles 
+    def plot_perf(graphes,y_test,):
+        if 'Confusion  matrix' in graphes:
+            st.subheader('matrice  de confusion') 
+            ConfusionMatrixDisplay.from_estimator (
+                model,
+                x_test,
+                y_test
+            ) 
+            st.pyplot()
+        if 'ROC curve' in graphes:
+            st.subheader('Courbe ROC') 
+            fpr, tpr, _ = roc_curve(y_test, y_pred)
+            RocCurveDisplay(fpr=fpr, tpr=tpr).plot()
+            st.pyplot()
+
+        if 'Precison-Recall curve' in graphes:
+            st.subheader('Courbe Precision-Recall') 
+            precision, recall, _ = precision_recall_curve(y_test, y_pred)
+            PrecisionRecallDisplay(precision=precision, recall=recall).plot()
+            st.pyplot()
+    
+
+        
+
     if classifier == "Random Forest":
         st.sidebar.subheader("Hyperparametres du modeles ")
         n_arbres = st.sidebar.number_input(
@@ -58,9 +83,15 @@ def main():
         )
         bootstrap_arbre = st.sidebar.radio(
             "Echantillons bootstrap lors de la creation d'arbres ?",
-            ["True", "False"]
+            [True, False]
+        )   
 
-        )    
+        graphes_perf = st.sidebar.multiselect(
+            "Choisir les graphes de performances",
+            ("Confusion  matrix","ROC curve","Precison-Recall curve")
+
+        )
+
         if st.sidebar.button("Execution",key ="Classify"):
             st.subheader("Random Forest Resultats")
 
@@ -78,15 +109,16 @@ def main():
 
             #Metriques de la performance 
             accuracy = model.score(x_test,y_test)
-            precision = precision_score(y_test, y_pred, average='macro')
-            recall = recall_score(y_test, y_pred, average='macro')
+            precision = precision_score(y_test, y_pred)
+            recall = recall_score(y_test, y_pred)
 
             #Afficher les metriques dans l'application 
-            st.write("Accuarcy ",accuracy.round(3))
-            st.write("Precision ",precision.round(3))
-            st.write("Recall ",recall.round(3))
+            st.write("Accuracy ", round(accuracy, 3))
+            st.write("Precision ",round(precision, 3))
+            st.write("Recall ",round(recall, 3))
 
-
+            #Afficher les graphes de performances dans l'application
+            plot_perf(graphes_perf)
 
 
 if __name__ == '__main__':
