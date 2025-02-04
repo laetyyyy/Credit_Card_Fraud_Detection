@@ -47,27 +47,33 @@ def main():
     )
 
     #Analyse de la performance des modeles 
-    def plot_perf(graphes,y_test,):
+    
+    
+    def plot_perf(graphes,x_test, y_test, y_pred, model):
         if 'Confusion  matrix' in graphes:
-            st.subheader('matrice  de confusion') 
-            ConfusionMatrixDisplay.from_estimator (
+            st.subheader('Matrice de confusion') 
+            fig, ax = plt.subplots()  # Create a new figure and axis
+            ConfusionMatrixDisplay.from_estimator(
                 model,
                 x_test,
-                y_test
-            ) 
-            st.pyplot()
+                y_test,
+                ax=ax  # Plot on the created axis
+            )
+            st.pyplot(fig)  # Pass the figure to st.pyplot()
+
         if 'ROC curve' in graphes:
             st.subheader('Courbe ROC') 
             fpr, tpr, _ = roc_curve(y_test, y_pred)
-            RocCurveDisplay(fpr=fpr, tpr=tpr).plot()
-            st.pyplot()
+            fig, ax = plt.subplots()  # Create a new figure and axis
+            RocCurveDisplay(fpr=fpr, tpr=tpr).plot(ax=ax)  # Plot on the created axis
+            st.pyplot(fig)  # Pass the figure to st.pyplot()
 
-        if 'Precison-Recall curve' in graphes:
+        if 'Precision-Recall curve' in graphes:
             st.subheader('Courbe Precision-Recall') 
             precision, recall, _ = precision_recall_curve(y_test, y_pred)
-            PrecisionRecallDisplay(precision=precision, recall=recall).plot()
-            st.pyplot()
-    
+            fig, ax = plt.subplots()  # Create a new figure and axis
+            PrecisionRecallDisplay(precision=precision, recall=recall).plot(ax=ax)  # Plot on the created axis
+            st.pyplot(fig)  # Pass the figure to st.pyplot()
 
         
 
