@@ -8,7 +8,6 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import ConfusionMatrixDisplay, roc_curve, precision_recall_curve, RocCurveDisplay, PrecisionRecallDisplay, precision_score, recall_score
 import matplotlib.pyplot as plt
 
-st.set_option('deprecation.showPuplotGlobalUse',False)
 
 def main():
     st.title("Application pour la détection de fraude par carte de crédit")
