@@ -13,8 +13,10 @@ Régression Logistique
 Personnalisation des hyperparamètres : Ajustez les paramètres du modèle, comme le nombre d'arbres pour Random Forest.
 Métriques de performance : Affiche l'accuracy, la précision et le rappel du modèle.
 Graphiques de performance : Matrice de confusion, courbe ROC, et courbe Précision-Rappel.
+
 Prérequis
 Python 3.x installé
+
 Bibliothèques Python nécessaires :
 streamlit
 pandas
