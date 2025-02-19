@@ -132,6 +132,18 @@ def main():
 
             #Afficher les graphes de performances dans l'application
             plot_perf(graphes_perf)
+            # Afficher les transactions frauduleuses prédites
+            if st.sidebar.checkbox("Afficher les transactions frauduleuses prédites"):
+                st.subheader("Transactions frauduleuses prédites")
+
+                # Filtrer les transactions frauduleuses
+                fraud_predictions = x_test[y_pred == 1]  # Sélectionner les transactions prédites comme frauduleuses
+                fraud_transactions = fraud_predictions.assign(True_Labels=y_test[y_pred == 1].values)  # Ajouter les vraies étiquettes
+
+                # Afficher les résultats
+                st.write(f"Nombre de transactions frauduleuses prédites: {len(fraud_transactions)}")
+                st.write(fraud_transactions)
+
 
 
     # Regression  Logistiaue      
@@ -181,6 +193,18 @@ def main():
 
             #Afficher les graphes de performances dans l'application
             plot_perf(graphes_perf)
+            # Afficher les transactions frauduleuses prédites
+            if st.sidebar.checkbox("Afficher les transactions frauduleuses prédites"):
+                st.subheader("Transactions frauduleuses prédites")
+
+                # Filtrer les transactions frauduleuses
+                fraud_predictions = x_test[y_pred == 1]  # Sélectionner les transactions prédites comme frauduleuses
+                fraud_transactions = fraud_predictions.assign(True_Labels=y_test[y_pred == 1].values)  # Ajouter les vraies étiquettes
+
+                # Afficher les résultats
+                st.write(f"Nombre de transactions frauduleuses prédites: {len(fraud_transactions)}")
+                st.write(fraud_transactions)
+
 
 
 
@@ -228,6 +252,8 @@ def main():
             #predrictions
             y_pred = model.predict(x_test)
 
+
+
             #Metriques de la performance 
             accuracy = model.score(x_test,y_test)
             precision = precision_score(y_test, y_pred)
@@ -240,6 +266,18 @@ def main():
 
             #Afficher les graphes de performances dans l'application
             plot_perf(graphes_perf)
+            # Afficher les transactions frauduleuses prédites
+            if st.sidebar.checkbox("Afficher les transactions frauduleuses prédites"):
+                st.subheader("Transactions frauduleuses prédites")
+
+                # Filtrer les transactions frauduleuses
+                fraud_predictions = x_test[y_pred == 1]  # Sélectionner les transactions prédites comme frauduleuses
+                fraud_transactions = fraud_predictions.assign(True_Labels=y_test[y_pred == 1].values)  # Ajouter les vraies étiquettes
+
+                # Afficher les résultats
+                st.write(f"Nombre de transactions frauduleuses prédites: {len(fraud_transactions)}")
+                st.write(fraud_transactions)
+
 
 
 
